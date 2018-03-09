@@ -14,6 +14,7 @@ namespace Quorra.Models
             builder.RegisterType<UpdateService>().As<IUpdateService>().InstancePerLifetimeScope();
             builder.RegisterType<LuisService>().As<ILuisService>().InstancePerLifetimeScope();
             builder.RegisterType<HubService>().As<IHubService>().InstancePerLifetimeScope();
+            builder.RegisterType<JokeService>().As<IJokeService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Quorra.Data;
 using Quorra.Interfaces;
+using Quorra.Models;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -11,11 +13,15 @@ namespace Quorra.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IBotService _botService;
+        private readonly ILuisService _luisService;
+        private readonly IJokeService _jokeService;
 
-        public HubService(ApplicationDbContext context, IBotService botService)
+        public HubService(ApplicationDbContext context, IBotService botService, ILuisService luisService, IJokeService jokeService)
         {
             _context = context;
             _botService = botService;
+            _luisService = luisService;
+            _jokeService = jokeService;
         }
 
         public async Task HandleMessageAsync(Message message)
@@ -35,6 +41,36 @@ namespace Quorra.Services
                 //Send an answer to Telegram
                 await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, $"Hi, {message.Chat.Username}! It looks like this is our first conversation. Nice to meet you!");
             }
+
+            var topScoringIntent = await _luisService.GetTopScoringIntentAsync(message.Text);
+
+            if (topScoringIntent == "Joke.Show")
+            {
+                await TellJokeAsync(message);
+            }
+
+            if (topScoringIntent == "None")
+            {
+                await TellNoneAsync(message);
+            }
+        }
+
+        private async Task TellJokeAsync(Message message)
+        {
+            var joke = await _jokeService.GetJokeAsync();
+
+            await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, joke.Setup);
+            await _botService.TelegramBotClient.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+            await Task.Delay(1500);
+            await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, joke.Punchline);
+        }
+
+        private async Task TellNoneAsync(Message message)
+        {
+            await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, "Sorry, I don't understand you...");
+            await _botService.TelegramBotClient.SendChatActionAsync(message.Chat.Id, ChatAction.Typing);
+            await Task.Delay(1500);
+            await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, "yet");
         }
 
         private async Task RememberUserAsync(Message message)
