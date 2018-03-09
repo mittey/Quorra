@@ -9,17 +9,20 @@ namespace Quorra.Controllers
     public class UpdateController : Controller
     {
         private readonly IUpdateService _updateService;
+        private readonly IHubService _hubService;
 
-        public UpdateController(IUpdateService updateService)
+        public UpdateController(IUpdateService updateService, IHubService hubService)
         {
             _updateService = updateService;
+            _hubService = hubService;
         }
 
-        // POST api/update
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Update update)
         {
-            await _updateService.EchoAsync(update);
+            var messge = await _updateService.Receive(update);
+            await _hubService.HandleMessageAsync(messge);
+
             return Ok();
         }
     }

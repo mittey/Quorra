@@ -3,8 +3,8 @@ using Telegram.Bot.Types;
 
 namespace Quorra.Interfaces
 {
-    public interface IUpdateService
+    public interface IHubService
     {
-        Task<Message> Receive(Update update);
+        Task HandleMessageAsync(Message message);
     }
 }

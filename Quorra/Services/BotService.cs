@@ -12,9 +12,10 @@ namespace Quorra.Services
         public BotService(IOptions<BotConfiguration> options)
         {
             _options = options;
-            Client = new TelegramBotClient(_options.Value.APIKey);
+
+            TelegramBotClient = new TelegramBotClient(_options.Value.APIKey);
         }
 
-        public TelegramBotClient Client { get; }
+        public TelegramBotClient TelegramBotClient { get; }
     }
 }

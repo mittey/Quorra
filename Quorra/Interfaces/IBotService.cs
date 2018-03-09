@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 
 namespace Quorra.Interfaces
 {
     public interface IBotService
     {
-        TelegramBotClient Client { get; }
+        TelegramBotClient TelegramBotClient { get; }
     }
 }
