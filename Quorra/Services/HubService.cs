@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Quorra.Data;
 using Quorra.Interfaces;
-using Quorra.Models;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InlineKeyboardButtons;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Quorra.Services
 {
@@ -18,13 +13,19 @@ namespace Quorra.Services
         private readonly IBotService _botService;
         private readonly ILuisService _luisService;
         private readonly IJokeService _jokeService;
+        private readonly IHelpService _helpService;
 
-        public HubService(ApplicationDbContext context, IBotService botService, ILuisService luisService, IJokeService jokeService)
+        public HubService(ApplicationDbContext context,
+            IBotService botService,
+            ILuisService luisService,
+            IJokeService jokeService,
+            IHelpService helpService)
         {
             _context = context;
             _botService = botService;
             _luisService = luisService;
             _jokeService = jokeService;
+            _helpService = helpService;
         }
 
         public async Task HandleMessageAsync(Message message)
@@ -51,16 +52,7 @@ namespace Quorra.Services
 
             if (luisData.TopScoringIntent.Intent == "Help.Show")
             {
-                var quorra = new List<string>
-                {
-                    "you", "yourself"
-                };
-                var asd = luisData.Entities.Select(m => m.Entity).FirstOrDefault();
-
-                if (quorra.Contains(asd))
-                {
-                    await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, "Info about Quorra");
-                }
+                await _helpService.HandleHelpAsync(message);
             }
 
             if (luisData.TopScoringIntent.Intent == "Joke.Show")
@@ -72,25 +64,6 @@ namespace Quorra.Services
             {
                 await TellNoneAsync(message);
             }
-        }
-
-        private async Task ShowCategoriesAsync(Message message)
-        {
-            var inlineKeyboard = new InlineKeyboardMarkup(new[]
-            {
-                new [] // first row
-                {
-                    InlineKeyboardButton.WithCallbackData("Category 1"),
-                    InlineKeyboardButton.WithCallbackData("Category 2")
-                },
-                new [] // second row
-                {
-                    InlineKeyboardButton.WithCallbackData("Category 3"),
-                    InlineKeyboardButton.WithCallbackData("Category 4")
-                }
-            });
-
-            await _botService.TelegramBotClient.SendTextMessageAsync(message.Chat.Id, "Choose", replyMarkup: inlineKeyboard);
         }
 
         private async Task TellJokeAsync(Message message)
