@@ -3,8 +3,8 @@ using Telegram.Bot.Types;
 
 namespace Quorra.Interfaces
 {
-    public interface IJokeService
+    public interface INoneService
     {
-        Task HandleJokeAsync(Message message);
+        Task HandleNoneAsync(Message message);
     }
 }

@@ -20,8 +20,8 @@ namespace Quorra.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Update update)
         {
-            var messge = await _updateService.Receive(update);
-            await _hubService.HandleMessageAsync(messge);
+            var message = await _updateService.Receive(update);
+            await _hubService.HandleMessageAsync(message);
 
             return Ok();
         }
