@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Quorra.Interfaces;
 
 namespace Quorra.Services
 {
-    public class MemeService
+    public class MemeService : IMemeService
     {
     }
 }
