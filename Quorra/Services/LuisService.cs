@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Quorra.Interfaces;
-using Quorra.Models;
+using Quorra.Models.Configs;
+using Quorra.Models.JSON;
 
 namespace Quorra.Services
 {

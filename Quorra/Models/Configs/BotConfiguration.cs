@@ -1,4 +1,4 @@
-﻿namespace Quorra.Models
+﻿namespace Quorra.Models.Configs
 {
     public class BotConfiguration
     {

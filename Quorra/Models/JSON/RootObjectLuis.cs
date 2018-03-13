@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Quorra.Models
+namespace Quorra.Models.JSON
 {
     public class RootObjectLuis
     {
