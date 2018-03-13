@@ -6,12 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20180309141940_Inital.cs" />
-    <Compile Remove="Migrations\20180309141940_Inital.Designer.cs" />
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -25,6 +25,13 @@ namespace Quorra.Services
             return topScoringIntent;
         }
 
+        public async Task<RootObjectLuis> GetAllDataAsync(string query)
+        {
+            var luisData = await GetLuisDataAsync(query);
+
+            return luisData;
+        }
+
         private async Task<RootObjectLuis> GetLuisDataAsync(string query)
         {
             RootObjectLuis result;
