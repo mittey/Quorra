@@ -7,12 +7,6 @@ namespace Quorra.Services
 {
     public class UpdateService : IUpdateService
     {
-        private readonly IBotService _botService;
-
-        public UpdateService(IBotService botService)
-        {
-            _botService = botService;
-        }
 
         public Task<Message> Receive(Update update)
         {

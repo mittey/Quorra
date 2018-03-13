@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Quorra.Models
+namespace Quorra.Models.JSON
 {
     public class TopScoringIntentLuis
     {

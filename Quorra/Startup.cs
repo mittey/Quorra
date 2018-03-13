@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quorra.Data;
 using Quorra.Models;
+using Quorra.Models.Configs;
 
 namespace Quorra
 {
