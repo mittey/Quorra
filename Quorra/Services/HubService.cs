@@ -45,19 +45,20 @@ namespace Quorra.Services
 
             var luisData = await _luisService.GetAllDataAsync(message.Text);
 
-            if (luisData.TopScoringIntent.Intent == "Help.Show")
+            switch (luisData.TopScoringIntent.Intent)
             {
-                await _helpService.HandleHelpAsync(message);
-            }
-
-            if (luisData.TopScoringIntent.Intent == "Joke.Show")
-            {
-                await _jokeService.HandleJokeAsync(message);
-            }
-
-            if (luisData.TopScoringIntent.Intent == "None")
-            {
-                await _noneService.HandleNoneAsync(message);
+                case "Help.Show":
+                    await _helpService.HandleHelpAsync(message);
+                    break;
+                case "Joke.Show":
+                    await _jokeService.HandleJokeAsync(message);
+                    break;
+                case "None":
+                    await _noneService.HandleNoneAsync(message);
+                    break;
+                default:
+                    await _noneService.HandleNoneAsync(message);
+                    break;
             }
         }
 
