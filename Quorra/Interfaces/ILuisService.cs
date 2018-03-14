@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Quorra.Models;
+using Quorra.Models.JSON;
 
 namespace Quorra.Interfaces
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Quorra.Interfaces;
-using Quorra.Models;
+using Quorra.Models.Configs;
 using Telegram.Bot;
 
 namespace Quorra.Services

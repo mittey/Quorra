@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Quorra.Interfaces;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.InlineKeyboardButtons;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Quorra.Services
